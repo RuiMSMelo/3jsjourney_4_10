@@ -32,6 +32,7 @@ void main()
     // Compute normal
     vec3 toA = normalize(modelPositionA - modelPosition.xyz);
     vec3 toB = normalize(modelPositionB - modelPosition.xyz);
+    vec3 computeNormal = cross(toA, toB);
 
     // Final position
     vec4 viewPosition = viewMatrix * modelPosition;
@@ -40,6 +41,6 @@ void main()
 
     // Varyings
     vElevation = elevation;
-    vNormal = (modelMatrix * vec4(normal, 0.0)).xyz;
+    vNormal = computeNormal;
     vPosition = modelPosition.xyz;
 }

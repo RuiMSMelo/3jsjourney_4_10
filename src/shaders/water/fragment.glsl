@@ -8,6 +8,8 @@ varying vec3 vNormal;
 varying vec3 vPosition;
 
 #include ../includes/pointLight.glsl
+#include ../includes/ambientLight.glsl
+#include ../includes/directionalLight.glsl
 
 
 void main()
@@ -20,22 +22,38 @@ void main()
     mixStrength = smoothstep(0.0, 1.0, mixStrength);
     vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);
 
+
     // Light
     vec3 light = vec3(0.0);
-    light += pointLight(
+
+    // Point Light
+    // light += pointLight(
+    //     vec3(1.0),
+    //     10.0,
+    //     normal,
+    //     vec3(0.0, 0.25, 0.0),
+    //     viewDirection,
+    //     30.0,
+    //     vPosition,
+    //     0.95
+    // );
+
+    // Ambient Light
+    // light += ambientLight(vec3(1.0), 1.0);
+    
+    // Directional Light
+    light += directionalLight(
         vec3(1.0),
-        10.0,
+        0.6,
         normal,
         vec3(0.0, 0.25, 0.0),
         viewDirection,
-        30.0,
-        vPosition,
-        0.95
+        30.0
     );
     color *= light;
     
     // Final color
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, 1);
 
     #include <tonemapping_fragment>
     #include <colorspace_fragment>

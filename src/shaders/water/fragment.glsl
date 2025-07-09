@@ -35,7 +35,7 @@ void main()
         viewDirection,
         30.0,
         vPosition,
-        0.2
+        0.3
     );
 
     // Ambient Light
@@ -44,7 +44,7 @@ void main()
     // Directional Light
     light += directionalLight(
         vec3(1.0),
-        0.2,
+        0.01,
         normal,
         vec3(0.0, 0.25, 0.0),
         viewDirection,

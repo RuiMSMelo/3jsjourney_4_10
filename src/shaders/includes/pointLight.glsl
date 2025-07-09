@@ -15,7 +15,7 @@ vec3 pointLight(vec3 lightColor, float lightIntensity, vec3 normal, vec3 lightPo
     specular = pow(specular, specularPower);
 
     // Decay
-    float decay = 1.0 - lightDistance * lightDecay;
+    float decay = 1.0 / (1.0 + lightDecay * lightDistance * lightDistance); //tweak
     decay = max(0.0, decay);
 
     return lightColor * lightIntensity * decay * (shading + specular);

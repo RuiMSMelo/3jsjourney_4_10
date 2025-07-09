@@ -48,19 +48,19 @@ const waterMaterial = new THREE.ShaderMaterial({
     uniforms: {
         uTime: { value: 0 },
 
-        uBigWavesElevation: { value: 0.2 },
-        uBigWavesFrequency: { value: new THREE.Vector2(4, 1.5) },
-        uBigWavesSpeed: { value: 0.75 },
+        uBigWavesElevation: { value: 0.15 },
+        uBigWavesFrequency: { value: new THREE.Vector2(3.5, 2) },
+        uBigWavesSpeed: { value: 0.95 },
 
-        uSmallWavesElevation: { value: 0.15 },
-        uSmallWavesFrequency: { value: 3 },
+        uSmallWavesElevation: { value: 0.05 },
+        uSmallWavesFrequency: { value: 5 },
         uSmallWavesSpeed: { value: 0.2 },
         uSmallIterations: { value: 4 },
 
         uDepthColor: { value: new THREE.Color(debugObject.depthColor) },
         uSurfaceColor: { value: new THREE.Color(debugObject.surfaceColor) },
-        uColorOffset: { value: 0.925 },
-        uColorMultiplier: { value: 1 },
+        uColorOffset: { value: 0.3 },
+        uColorMultiplier: { value: 0.9 },
     },
 })
 
@@ -154,7 +154,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     100
 )
-camera.position.set(1, 1, 1)
+camera.position.set(5, 0.75, 5)
 scene.add(camera)
 
 // Controls

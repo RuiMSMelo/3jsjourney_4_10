@@ -26,7 +26,7 @@ const scene = new THREE.Scene()
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(20, 20, 2048, 2048)
+const waterGeometry = new THREE.PlaneGeometry(20, 20, 1024, 1024)
 waterGeometry.deleteAttribute('normal') // not using these
 waterGeometry.deleteAttribute('uv') // not using these
 
@@ -167,6 +167,7 @@ controls.enableDamping = true
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
 })
+renderer.setClearColor('#010206') //background color
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))

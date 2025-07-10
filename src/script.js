@@ -3,6 +3,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 import waterVertexShader from './shaders/water/vertex.glsl'
 import waterFragmentShader from './shaders/water/fragment.glsl'
+import {
+    DepthOfFieldEffect,
+    EffectComposer,
+    EffectPass,
+    RenderPass,
+} from 'postprocessing'
 
 /**
  * Base
@@ -166,11 +172,31 @@ controls.enableDamping = true
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
+    powerPreference: 'high-performance',
+    antialias: false,
+    stencil: false,
+    depth: false,
 })
 renderer.setClearColor('#010206') //background color
 renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.outputEncoding = THREE.sRGBEncoding
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+/**
+ * Post processing
+ */
+
+const composer = new EffectComposer(renderer)
+composer.addPass(new RenderPass(scene, camera))
+
+const dofEffect = new DepthOfFieldEffect(camera, {
+    focusDistance: 0.075,
+    focalLength: 0.02,
+    bokehScale: 5.0,
+})
+
+composer.addPass(new EffectPass(camera, dofEffect))
 
 /**
  * Animate
@@ -186,8 +212,8 @@ const tick = () => {
     // Update controls
     controls.update()
 
-    // Render
-    renderer.render(scene, camera)
+    // Render composer
+    composer.render()
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)

@@ -32,7 +32,7 @@ const scene = new THREE.Scene()
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(20, 20, 1024, 1024)
+const waterGeometry = new THREE.PlaneGeometry(30, 30, 1024, 1024)
 waterGeometry.deleteAttribute('normal') // not using these
 waterGeometry.deleteAttribute('uv') // not using these
 
@@ -54,8 +54,8 @@ const waterMaterial = new THREE.ShaderMaterial({
     uniforms: {
         uTime: { value: 0 },
 
-        uBigWavesElevation: { value: 0.15 },
-        uBigWavesFrequency: { value: new THREE.Vector2(3.5, 2) },
+        uBigWavesElevation: { value: 0.1 },
+        uBigWavesFrequency: { value: new THREE.Vector2(3, 2) },
         uBigWavesSpeed: { value: 0.95 },
 
         uSmallWavesElevation: { value: 0.05 },
@@ -180,6 +180,7 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setClearColor('#010206') //background color
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.outputEncoding = THREE.sRGBEncoding
+renderer.outputColorSpace = THREE.SRGBColorSpace
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -191,9 +192,9 @@ const composer = new EffectComposer(renderer)
 composer.addPass(new RenderPass(scene, camera))
 
 const dofEffect = new DepthOfFieldEffect(camera, {
-    focusDistance: 0.075,
+    focusDistance: 0.07,
     focalLength: 0.02,
-    bokehScale: 5.0,
+    bokehScale: 4.0,
 })
 
 composer.addPass(new EffectPass(camera, dofEffect))
@@ -214,6 +215,7 @@ const tick = () => {
 
     // Render composer
     composer.render()
+    // renderer.render(scene, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)

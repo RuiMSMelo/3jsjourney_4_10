@@ -173,31 +173,32 @@ controls.enableDamping = true
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     powerPreference: 'high-performance',
-    antialias: false,
+    antialias: true,
     stencil: false,
     depth: false,
 })
 renderer.setClearColor('#010206') //background color
-renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.outputEncoding = THREE.sRGBEncoding
-renderer.outputColorSpace = THREE.SRGBColorSpace
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 /**
  * Post processing
  */
-
 const composer = new EffectComposer(renderer)
+composer.preserveDrawingBuffer = true
+
 composer.addPass(new RenderPass(scene, camera))
 
 const dofEffect = new DepthOfFieldEffect(camera, {
     focusDistance: 0.07,
-    focalLength: 0.02,
-    bokehScale: 4.0,
+    focalLength: 0.03,
+    bokehScale: 2.0,
 })
 
-composer.addPass(new EffectPass(camera, dofEffect))
+// const dofPass = new EffectPass(camera, dofEffect)
+// dofEffect.blendMode.opacity.value = 1.0
+// dofEffect.renderToScreen = true
+// composer.addPass(dofPass)
 
 /**
  * Animate
@@ -214,6 +215,8 @@ const tick = () => {
     controls.update()
 
     // Render composer
+    renderer.setClearColor('#010206', 1)
+    renderer.clear()
     composer.render()
     // renderer.render(scene, camera)
 

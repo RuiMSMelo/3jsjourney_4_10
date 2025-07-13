@@ -44,7 +44,7 @@ void main()
     // Directional Light
     light += directionalLight(
         vec3(1.0),
-        0.01,
+        0.0,
         normal,
         vec3(0.0, 0.25, 0.0),
         viewDirection,
@@ -53,7 +53,8 @@ void main()
     color *= light;
     
     // Final color
-    gl_FragColor = vec4(color, 1);
+    gl_FragColor = vec4(color, 1.0);
+
 
     #include <tonemapping_fragment>
     #include <colorspace_fragment>

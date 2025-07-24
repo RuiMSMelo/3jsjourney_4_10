@@ -14,7 +14,8 @@ import {
  * Base
  */
 // Debug
-const gui = new GUI({ width: 340 })
+const gui = new GUI({ width: 340, closeFolders: true })
+gui.close()
 const debugObject = {}
 
 // Canvas
@@ -54,11 +55,11 @@ const waterMaterial = new THREE.ShaderMaterial({
     uniforms: {
         uTime: { value: 0 },
 
-        uBigWavesElevation: { value: 0.1 },
-        uBigWavesFrequency: { value: new THREE.Vector2(3, 2) },
-        uBigWavesSpeed: { value: 0.95 },
+        uBigWavesElevation: { value: 0.04 },
+        uBigWavesFrequency: { value: new THREE.Vector2(3, 1) },
+        uBigWavesSpeed: { value: 0.75 },
 
-        uSmallWavesElevation: { value: 0.05 },
+        uSmallWavesElevation: { value: 0.015 },
         uSmallWavesFrequency: { value: 5 },
         uSmallWavesSpeed: { value: 0.2 },
         uSmallIterations: { value: 4 },
@@ -190,9 +191,9 @@ composer.preserveDrawingBuffer = true
 composer.addPass(new RenderPass(scene, camera))
 
 const dofEffect = new DepthOfFieldEffect(camera, {
-    focusDistance: 0.07,
-    focalLength: 0.03,
-    bokehScale: 2.0,
+    focusDistance: 0.065,
+    focalLength: 0.15,
+    bokehScale: 7.0,
 })
 
 // const dofPass = new EffectPass(camera, dofEffect)
@@ -215,10 +216,7 @@ const tick = () => {
     controls.update()
 
     // Render composer
-    renderer.setClearColor('#010206', 1)
-    renderer.clear()
     composer.render()
-    // renderer.render(scene, camera)
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)

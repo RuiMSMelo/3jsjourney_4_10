@@ -1,16 +1,3 @@
-# Three.js Journey
+# Ocean Night Shader
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
-
-``` bash
-# Install dependencies (only the first time)
-npm install
-
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
+This project is a custom ocean shader designed to simulate the look and feel of a somber night at sea. Built using GLSL and Three.js, the scene features dynamic water movement, realistic lighting, and an eerie point light positioned in the middle of the ocean. An integrated GUI panel allows users to control various shader parameters, such as wave speed and color grading, making the experience both visually stunning and interactive.
